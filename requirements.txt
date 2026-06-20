@@ -1,0 +1,10 @@
+google_genai==2.9.0
+fastapi==0.138.0
+uvicorn==0.49.0
+paddlepaddle==3.3.1
+pdfplumber==0.11.10
+dotenv==0.9.9
+aiohttp==3.14.1
+python-multipart==0.0.32
+opencv-python==4.13.0
+
