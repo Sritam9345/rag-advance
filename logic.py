@@ -3,11 +3,14 @@ import re
 from table_join import table_format
 import io
 import aiohttp
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 async def pdf_checker(pdf):
 
     results = []
+    
+    chunks = []
 
     with pdfplumber.open(pdf) as file:
 
@@ -97,6 +100,9 @@ async def pdf_checker(pdf):
                 else:
                     final_text = raw_text
                 
+                
+                chunks.extend(buildChunking(final_text))
+                
                 results.append(
                     {
                         "page": index,
@@ -108,8 +114,9 @@ async def pdf_checker(pdf):
     print("EMBED_DIRECTLY", emebed_directly)
     print("OCR", ocr)
     print("VISION", vision)
+    
 
-    return results
+    return chunks
             
             
         
@@ -160,6 +167,17 @@ def page_to_image(page) -> bytes:
     img_bytes = buffer.getvalue()
     
     return img_bytes
+
+
+def buildChunking(text: str)-> list[str]:
+    
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=512,
+        chunk_overlap=100,
+    )
+    
+    return splitter.split_text(text)
+    
     
 
 if __name__ == '__main__':

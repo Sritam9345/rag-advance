@@ -4,7 +4,6 @@ import numpy as np
 from collections import defaultdict
 import numpy as np
 
-
 print("creating")
 
 ocr = PaddleOCR(
@@ -36,8 +35,11 @@ def ocr_logic(image_bytes):
     page_result["rec_boxes"]
 )
     
+    # print(page_result["rec_texts"])
     
     final_text = clean_ocr_table(table_like_text)
+    
+    print(len(final_text))
     
     return final_text
     

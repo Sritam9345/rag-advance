@@ -39,6 +39,7 @@ Do not mention colors unless important.
 
 
 async def vision_response(image_bytes):
+    
     response = await client.aio.models.generate_content(
         model="gemini-2.5-flash",
         contents=[
